@@ -22,7 +22,9 @@ async function build() {
   const targetDir = path.resolve(root, 'lib');
   const jsTarget = targetDir;
   const cssTarget = path.resolve(targetDir, 'css');
-  const hackFileName = 'antd-globals-hiding-hack'
+  const hackFileName = 'antd-globals-hiding-hack';
+  const styleFileName = 'style';
+
   const hackFileSource = path.resolve(
     sourceDir,
     'less',
@@ -31,6 +33,16 @@ async function build() {
   const hackFileOutputPath = path.resolve(
     cssTarget,
     hackFileName + '.css'
+  );
+
+  const styleFileSource = path.resolve(
+    sourceDir,
+    'less',
+    styleFileName + '.less'
+  );
+  const styleFileOutputPath = path.resolve(
+    cssTarget,
+    styleFileName + '.css'
   );
 
   try {
@@ -44,7 +56,9 @@ async function build() {
 
     // copy css
     process.stdout.write('Copying library style definitions... \n');
-    const cssResult = await exec(`cpy ${sourceDir}/css/style.css ${cssTarget}`);
+    const styleResult = await exec(
+      `lessc --js ${styleFileSource} ${styleFileOutputPath}`
+    );
 
     // compile antd-hack less into css and copy it into lib
     process.stdout.write('Implementing antd hack... \n');
@@ -66,6 +80,7 @@ async function build() {
 
     process.stdout.write('Success! \n');
   } catch (e) {
+    console.log('ERRROR', e);
     process.stderr.write(e)
     process.exit()
   }
