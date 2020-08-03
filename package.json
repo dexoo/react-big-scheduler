@@ -35,8 +35,7 @@
     "build:exampledist": "npm run clean:exampledist && cpy lib/css/style.css exampledist/static && cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.js",
     "example": "webpack-dev-server --config ./webpack/webpack-dev.config.js --hot",
     "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build",
-    "build:dll": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.dll.config.js",
-    "prepare": "npm i && npm run clean && npm run build"
+    "build:dll": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.dll.config.js"
   },
   "pre-commit": [
     "lint"
