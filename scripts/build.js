@@ -20,8 +20,10 @@ async function build() {
   const root = path.resolve(__dirname, '..');
   const sourceDir = path.resolve(root, 'src');
   const targetDir = path.resolve(root, 'lib');
+  const targetDirExample = path.resolve(root, 'example');
   const jsTarget = targetDir;
   const cssTarget = path.resolve(targetDir, 'css');
+  const cssTargetExample = path.resolve(targetDirExample, 'css');
   const hackFileName = 'antd-globals-hiding-hack';
   const styleFileName = 'style';
 
@@ -34,6 +36,10 @@ async function build() {
     cssTarget,
     hackFileName + '.css'
   );
+  const hackFileOutputPathExample = path.resolve(
+    cssTargetExample,
+    hackFileName + '.css'
+  );
 
   const styleFileSource = path.resolve(
     sourceDir,
@@ -42,6 +48,10 @@ async function build() {
   );
   const styleFileOutputPath = path.resolve(
     cssTarget,
+    styleFileName + '.css'
+  );
+  const styleFileOutputPathExample = path.resolve(
+    cssTargetExample,
     styleFileName + '.css'
   );
 
@@ -56,15 +66,13 @@ async function build() {
 
     // copy css
     process.stdout.write('Copying library style definitions... \n');
-    const styleResult = await exec(
-      `lessc --js ${styleFileSource} ${styleFileOutputPath}`
-    );
+    const styleResult = await exec(`lessc --js ${styleFileSource} ${styleFileOutputPath}`);
+    const styleResultExample = await exec(`lessc --js ${styleFileSource} ${styleFileOutputPathExample}`);
 
     // compile antd-hack less into css and copy it into lib
     process.stdout.write('Implementing antd hack... \n');
-    const heckResult = await exec(
-      `lessc --js ${hackFileSource} ${hackFileOutputPath}`
-    );
+    const heckResult = await exec(`lessc --js ${hackFileSource} ${hackFileOutputPath}`);
+    const heckResultExample = await exec(`lessc --js ${hackFileSource} ${hackFileOutputPathExample}`);
     // append lib/index.js with line importing antd-hack
     const linesToBeAdded = [
       '',
