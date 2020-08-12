@@ -1233,9 +1233,13 @@
     opacity: 0;
   }
 }
-#RBS-Scheduler-root .ant-motion-collapse {
+#RBS-Scheduler-root .ant-motion-collapse-legacy {
   overflow: hidden;
 }
-#RBS-Scheduler-root .ant-motion-collapse-active {
+#RBS-Scheduler-root .ant-motion-collapse-legacy-active {
+  transition: height 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+}
+#RBS-Scheduler-root .ant-motion-collapse {
+  overflow: hidden;
   transition: height 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 }
