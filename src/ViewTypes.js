@@ -8,5 +8,5 @@ const ViewTypes = {
     Custom1: 6,
     Custom2: 7
 };
-
+export {ViewTypes}
 export default ViewTypes
